@@ -44,4 +44,29 @@ class HBaseConnector():
                 from_offsets = None
                 break
         return from_offsets
+    
+    def input_data_hbase(self, data_iter):
+        tput_list = []
+        for row in data_iter:
+            columnValuesList = []
+            rowkey = row['rowkey']
+            del row['rowkey']
+            for key in row.keys():
+                columnValuesList.append(TcolumnValue(key.split(':')[0],
+                                                     key.split(':')[1],
+                                                     row[key]))
+            tput = TPut(row=rowkey, columnValues=columnValuesList)
+            tput_list.append(tput)
+        self.client.putMultiple(self.input_table, tput_list)
+        
+def getHBaseOffset(topic, config, table, partition_number):
+    hbase = HbaseConnector(topic, config, table)
+    return hbase.get_offset_hbase(partition_number)
 
+def setHbaseOffset(rdd, topic, config, table):
+    hbase = HbaseConnector(topic, config, table)
+    hbase.put_offset_hbase(rdd.offsetRanges())
+
+def writeHBaseData(data, topic, config, table):
+    hbase = HbaseConnector(topic, config, table)
+    hbase.input_data_hbase(data)
