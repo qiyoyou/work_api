@@ -15,3 +15,11 @@ Textbook
 * Speech and Language Processing - An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition 3rd edition by Daniel Jurafsky, James H. Martin 
 * Recommender Systems by Charu C. Aggarwal
 * Stochastic Process 2nd edition by Sheldon M. Ross
+
+ETL
+* (SAA) Hive to MySQL
+* (UBA) Kafka to Kafka, Kafka to HBase
+* (PEW) ES to MySQL, Hive to Kafka
+* (CAP) Kafka to MySQL
+* (SAA + AGT) Hive to CSV
+* (Win counts) ES to CSV
